@@ -51,9 +51,9 @@ def mirror(name):
     data = {"name": name}
     return create_response(data)
 
-@app.route("/shows", methods=['GET'])
-def get_all_shows():
-    return create_response({"shows": db.get('shows')})
+# @app.route("/shows", methods=['GET'])
+# def get_all_shows():
+#     return create_response({"shows": db.get('shows')})
 
 @app.route("/shows/<id>", methods=['DELETE'])
 def delete_show(id):
@@ -71,7 +71,16 @@ def get_show_by_id(id):
         return create_response(status=404, message="No show with this id exists")
     else:
         return create_response({"shows": show}, message="Show successfully displayed")
-        
+
+@app.route("/shows", methods=['GET']) #Gets all shows by query string minEpisodes
+def get_show_by_min_episodes():
+    min_episodes = int(request.args.get('minEpisodes'))
+    show_list = [i for i in db.get('shows') if i["episodes_seen"] >= min_episodes]
+    if not show_list:
+        return create_response(status=404, message="No show with that many episodes watched exists")
+    else:
+        return create_response({"shows": show_list}, message="Shows successfully displayed")
+
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
