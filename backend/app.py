@@ -94,6 +94,20 @@ def add_show():
     }
     return create_response(db.create('shows', new_item), message="New Item Added to DB", status=201)
 
+@app.route("/shows/<id>", methods=['PUT']) #Changes show object
+def change_show(id):
+    show = db.getById('shows', int(id))
+    if show is None:
+        return create_response(status=404, message="No show with this id exists")
+
+    new_item = dict()
+    data = request.get_json()
+    if 'name' in data:
+        new_item['name'] = data['name']
+    if 'episodes_seen' in data:
+        new_item['episodes_seen'] = data['episodes_seen']
+    return create_response(data=db.updateById('shows', int(id), new_item), message="Item successfully changed in DB", status=201)
+
 
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
