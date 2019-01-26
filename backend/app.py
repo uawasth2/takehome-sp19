@@ -81,6 +81,20 @@ def get_show_by_min_episodes():
     else:
         return create_response({"shows": show_list}, message="Shows successfully displayed")
 
+@app.route("/shows", methods=['POST']) #Creates new show object
+def add_show():
+    data = request.get_json()
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'episodes_seen' not in data:
+        return create_response(status=422, message="No number of episodes seen provided for new show")
+    new_item = {
+        "name": data['name'],
+        "episodes_seen": data['episodes_seen']
+    }
+    return create_response(db.create('shows', new_item), message="New Item Added to DB", status=201)
+
+
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
