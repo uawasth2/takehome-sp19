@@ -3,9 +3,7 @@ import Counter from './Counter'
 
 class App extends Component {
   // YOUR CODE GOES BELOW
-  constructor(props) {
-    super(props)
-  }
+
   render() {
     return (
       <div>
