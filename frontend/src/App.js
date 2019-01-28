@@ -22,9 +22,6 @@ class App extends Component {
         {this.state.shows.map(x => (
           <Show id={x.id} name={x.name} episodes_seen={x.episodes_seen} />
         ))}
-        <div>
-          <Counter/>
-        </div>
       </div>
     )
   }

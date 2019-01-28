@@ -5,15 +5,15 @@ class Counter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      count: this.props.count
     }
   }
   render() {
     return (
       <div> 
-        <button onClick={this.incrementCount}>Increment</button>
+        <button onClick={this.decrementCount}>Decrement</button>        
         {this.state.count}
-        <button onClick={this.decrementCount}>Decrement</button>
+        <button onClick={this.incrementCount}>Increment</button>
       </div> 
     )
   }
